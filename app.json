@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "the-zzz-project-2",
+    "slug": "the-zzz-project-2",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
