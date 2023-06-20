@@ -1,6 +1,6 @@
 import Change_screen from "../components/Change_screen"
 import { Text, StyleSheet, ImageBackground, View } from "react-native"
-import {mainbackground} from 'src/img/mainbackground.png'
+import mainbackground from '../img/mainbackground.png'
 
 export default props => {
     console.warn(props.navigation.navigate != null)

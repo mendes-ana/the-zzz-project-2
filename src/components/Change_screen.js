@@ -1,7 +1,15 @@
 import React from "react";
 import { View, Text, Button, SafeAreaView, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 
+
 export default props => {
+    const buttonStyles = [styles.button];
+    if(props.theme === "secondary"){
+        buttonStyles.push(styles.buttonSecondary);
+    }
+    else{
+        buttonStyles.push(styles.button);
+    }
     return(
     <SafeAreaView style={{alignItems: 'center'}}>
         <View>
@@ -9,7 +17,7 @@ export default props => {
                 ? <TouchableOpacity
                     onPress={()=>{props.navigation.navigate(props.avancar)
                         }}
-                    ><View style={styles.button}>
+                    ><View style={buttonStyles}>
                     <Text style={styles.buttonText}>{props.text}</Text>
                 </View></TouchableOpacity>
                 : false
