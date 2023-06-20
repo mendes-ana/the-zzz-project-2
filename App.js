@@ -2,15 +2,15 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import Neopolitan from './src/components/Neopolitan';
+import Neo from './src/components/Neo';
 
 export default function App() {
   return (
-    <SafeAreaView style={{flex:1}}>
+    <View style={{flex: 1}}>
       <NavigationContainer>
-        <Neopolitan></Neopolitan>
+        <Neo></Neo>
       </NavigationContainer>
-    </SafeAreaView>
+    </View>
   );
 }
 
