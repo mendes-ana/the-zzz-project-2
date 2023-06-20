@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Change_screen from "./Change_screen";
 import Secondscreen from "../screens/Secondscreen";
 import Fristscreen from "../screens/Fristscreen";
+import Test from "../screens/Test";
 
 const Stack = createNativeStackNavigator()
 
@@ -18,6 +19,11 @@ export default props => (
                 component={Secondscreen}
                 options={{title: 'socorro'}}>
 
+        </Stack.Screen>
+        <Stack.Screen
+                name="Test"
+                component={Test}
+                options={{title: 'aaaa'}}>
         </Stack.Screen>
     </Stack.Navigator>
 )

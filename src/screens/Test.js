@@ -1,13 +1,12 @@
 import Change_screen from "../components/Change_screen"
 import { Text, View, StyleSheet } from "react-native"
+import Change_screen_intime from "../components/Change_screen_intime"
 
 export default props => {
     console.warn(props.navigation.navigate != null)
     return(
         <View style={styles.container}>
-            <Change_screen {...props} avancar='Test' text='sei la'>
-                <Text>Teste de tela 2</Text>
-            </Change_screen>
+            <Change_screen_intime {...props} avancar='Fristscreen'/>
         </View>
     )
 }
