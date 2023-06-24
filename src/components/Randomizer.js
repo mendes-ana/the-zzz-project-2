@@ -1,34 +1,40 @@
-import React, {createContext} from "react";
+import React from "react";
 import Players from "./Players";
+import PlayerList from "./Playerlist";
+import { View, Text } from "react-native";
+import arrayShuffle from "array-shuffle";
 
-export function Randomizer(n_players, n_ass, n_xer,n_ang ) {
+
+
+
+export default (props) => {
+
+  function random () {
     const roles = [];
-// Criando um array com as funções de acordo com os números de jogadores
-    for (let i = 1; i <= n_ass; i++) {
-        roles.push('Assassino');
+    for (let i = 1; i <=props.n_ass; i++) {
+      roles.push('Assassino');
     }
-    for (let i = 1; i <= n_xer; i++) {
-        roles.push('Xerife');
+    for (let i = 1; i <=props.n_xer; i++) {
+      roles.push('Xerife');
     }
-    for (let i = 1; i <= n_ang; i++) {
-        roles.push('Anjo');
+    for (let i = 1; i <=props.n_ang; i++) {
+      roles.push('Anjo');
     }
-    for (let i = 1; i <= n_players-(n_ass + n_xer + n_ang); i++) {
-        roles.push('Civil');
+    for (let i = 1; i <=(props.n_players - (props.n_ang + props.n_ass + props.n_xer)); i++) {
+      roles.push('Civil');
     }
-//Randomizando a ordem das roles
-  const assignedRoles = [];
-  for (let i = 0; i < n_players; i++) {
-    //indice aleatório 
-    const randomIndex = Math.floor(Math.random() * roles.length);
-    
-    const role = roles.splice(randomIndex, 1)[0];
-    assignedRoles.push({ player: players[i], role: role });
+    const assignedRoles = arrayShuffle(roles);
+    Players.forEach((player)=> {
+      const role = assignedRoles.pop();
+      player.role = role;
+    })
+
   }
 
-  Players.forEach((player)=> {
-    const role = assignedRoles.pop();
-    player.role = role;
-  })
-  return assignedRoles;
+  return (
+    random(),
+    <View >
+      {Players.map(p=>{return<Text key={p.id}>{p.name} : {p.role}</Text>})}
+    </View>
+  )
 }
