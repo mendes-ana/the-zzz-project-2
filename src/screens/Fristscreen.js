@@ -1,12 +1,13 @@
 import Change_screen from "../components/Change_screen"
 import { Text, StyleSheet, ImageBackground, View } from "react-native"
-import mainbackground from "./mainbackground.png"
+import Mainbackground from './background.png'
+
 
 export default props => {
     console.warn(props.navigation.navigate != null)
     return(
         <View style={styles.container}>
-            <ImageBackground source={mainbackground} resizeMode="cover" style={styles.image}>
+            <ImageBackground source={Mainbackground} resizeMode="cover" style={styles.image}>
                 <Change_screen {...props} avancar='Secondscreen' text='Jogar'>
                     <Text>Teste de tela</Text>
                 </Change_screen>
