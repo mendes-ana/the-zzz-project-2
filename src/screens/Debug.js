@@ -1,30 +1,31 @@
 import React, {useContext} from 'react';
 import { View, Text, FlatList } from 'react-native';
-import { PlayerContext2 } from './Player_context2';
-import Change_screen from './Change_screen';
+import { PlayerContext2 } from '../components/Player_context2';
+import Change_screen from '../components/Change_screen';
 
 
-const PlayerList = () => {
+export default props => {
 
-  const { players, updatePlayerFlags,initializePlayers } = useContext(PlayerContext2);
+  const { players} = useContext(PlayerContext2);
   // Render each player item
   const renderPlayerItem = ({item}) => (
     <View style={styles.playerItem}>
       <Text style={styles.playerName}>{item.name}</Text>
       <Text style={styles.playerName}>{item.role} </Text>
-      <Change_screen {...props} avancar='Debug' text='Next'></Change_screen>
-    </View>
-
+    </View>    
   );
+
+  const attackedPlayers = players.filter(player => player.attacked);
 
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Player List</Text>
       <FlatList
-        data={players}
+        data={attackedPlayers}
         renderItem={renderPlayerItem}
         keyExtractor={(item) => item.id.toString()}
       />
+      <Change_screen {...props} avancar='Assassin' text='Ok'></Change_screen>
     </View>
   );
 };
@@ -50,5 +51,3 @@ const styles = {
     marginLeft: 8,
   },
 };
-
-export default PlayerList;

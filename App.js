@@ -4,15 +4,18 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Neo from './src/components/Neo';
 import Randomizer from './src/components/Randomizer';
+import { PlayerProvider2 } from './src/components/Player_context2';
 
 
 export default function App() {
 
 return (
     <View style={{flex: 1}}>
+    <PlayerProvider2>
       <NavigationContainer>
-        <Randomizer n_players={10} n_ass={2} n_xer={2} n_ang={1}/>
+        <Neo></Neo>
       </NavigationContainer>
+    </PlayerProvider2>
     </View>
   );
 }
