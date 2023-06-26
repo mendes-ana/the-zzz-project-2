@@ -7,11 +7,12 @@ import Playerlist from "../components/Playerlist"
 import AttackScreen from "../screens/AttackScreen";
 import Firstscreen from "../screens/Firstscreen";
 import Debug from "../screens/Debug";
+import GameSetScreen from "../screens/GameSetScreen";
 
 const Stack = createNativeStackNavigator()
 
 export default props => (
-    <Stack.Navigator initialRouteName="Firstscreen" screenOptions={{headerShown:false}}>
+    <Stack.Navigator initialRouteName="Setting" screenOptions={{headerShown:false}}>
         {/* listar em Stacks.Screens separados cada uma das telas*/}
         <Stack.Screen
                 name="Firstscreen"
@@ -42,6 +43,11 @@ export default props => (
         <Stack.Screen
                 name="Debug"
                 component={Debug}
+                options={{title: 'asdasdas'}}>
+        </Stack.Screen>
+        <Stack.Screen
+                name="Setting"
+                component={GameSetScreen}
                 options={{title: 'asdasdas'}}>
         </Stack.Screen>
         

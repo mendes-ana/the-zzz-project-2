@@ -21,11 +21,11 @@ export default props => {
     <View style={styles.container}>
       <Text style={styles.heading}>Player List</Text>
       <FlatList
-        data={attackedPlayers}
+        data={players}
         renderItem={renderPlayerItem}
         keyExtractor={(item) => item.id.toString()}
       />
-      <Change_screen {...props} avancar='Assassin' text='Ok'></Change_screen>
+      <Change_screen {...props} avancar='Firstscreen' text='Ok'></Change_screen>
     </View>
   );
 };

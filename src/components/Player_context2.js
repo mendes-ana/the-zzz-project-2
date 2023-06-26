@@ -1,5 +1,21 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useReducer } from 'react';
 import arrayShuffle from 'array-shuffle';
+
+const initialState={
+  numPlayers: 0,
+  numAssassin:0,
+  numXerif:0,
+  numAng:0,
+};
+
+const configReducer =(state, action)=>{
+  switch(action.type){
+    case 'UPDATE_CONFIG':
+      return {...state, ...action.payload};
+    default:
+      return state;
+  }
+};
 
 const PlayerContext2 = createContext();
 
@@ -9,12 +25,14 @@ const PlayerProvider2 = ({ children }) => {
     const [numAssassin,setNumAssassin] = useState(0);
     const [numXerif,setNumXerif] = useState(0);
     const [numAng,setNumAng] = useState(0);
-  
-    // Function to initialize the context with 10 players
+    const [config, dispatch] = useReducer(configReducer, initialState)
     
-    
+    const updateConfig = (updatedConfig) =>{
+      dispatch({type: 'UPDATE_CONFIG', payload: updatedConfig});
+    };
+
     const initializePlayers = () => {
-        const initialPlayers = Array.from({ length: 10 }, (_, index) => ({
+        const initialPlayers = Array.from({ length: config.numPlayers }, (_, index) => ({
           id: index + 1, // Assign a unique ID to each player
           name: `Player ${index + 1}`,
           role: '',
@@ -40,10 +58,10 @@ const PlayerProvider2 = ({ children }) => {
 
     const randomizeRoles = () => {
         // Create an array with the specified number of roles
-        const roles = Array(2).fill('Assassino')
-          .concat(Array(2).fill('Xerife'))
-          .concat(Array(1).fill('Anjo'))
-          .concat(Array(5).fill('Civilian'));
+        const roles = Array(config.numAssassin).fill('Assassino')
+          .concat(Array(config.numXerif).fill('Xerife'))
+          .concat(Array(config.numAng).fill('Anjo'))
+          .concat(Array(config.numPlayers-(config.numAng+config.numAssassin+config.numXerif)).fill('Civilian'));
       
         const shuffledRoles= arrayShuffle(roles)
       
@@ -72,6 +90,8 @@ const PlayerProvider2 = ({ children }) => {
       setNumAng,
       numXerif,
       setNumXerif,
+      config,
+      updateConfig,
     };
   
     return (
