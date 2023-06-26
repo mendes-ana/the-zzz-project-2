@@ -5,7 +5,7 @@ import Change_screen from '../components/Change_screen';
 
 
 export default props => {
-  const { players, updatePlayerFlags } = useContext(PlayerContext2);
+  const { players, updatePlayerFlags, config } = useContext(PlayerContext2);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
 
   // Function to handle player selection
@@ -36,7 +36,7 @@ export default props => {
   // Render the attack screen
   return (
     <View>
-      <Text>Select up to 2 players to attack:</Text>
+      <Text>Select up to {config.numAssassin} players to attack:</Text>
       {alivePlayers.map(player => (
         <TouchableOpacity
           key={player.id}
@@ -46,7 +46,7 @@ export default props => {
             marginBottom: 10,
           }}
           onPress={() => handlePlayerSelection(player.id)}
-          disabled={selectedPlayers.length === 2 && !selectedPlayers.includes(player.id)}
+          disabled={selectedPlayers.length === config.numAssassin && !selectedPlayers.includes(player.id)}
         >
           <View
             style={{

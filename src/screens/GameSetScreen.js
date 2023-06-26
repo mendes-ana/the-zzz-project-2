@@ -20,11 +20,8 @@ export default props => {
         numAng: parseInt(numAng),
       };
       updateConfig(updatedConfig);
-      alert('atualizado');
       initializePlayers();
-      alert('criados');
-      randomizeRoles();  
-      alert('roles dadas');    
+      randomizeRoles();     
     };
   
     // Render the config screen

@@ -6,6 +6,8 @@ const initialState={
   numAssassin:0,
   numXerif:0,
   numAng:0,
+  gameover1:false,
+  gameover2:false,
 };
 
 const configReducer =(state, action)=>{
@@ -43,8 +45,43 @@ const PlayerProvider2 = ({ children }) => {
       
         setPlayers(initialPlayers);
       };
-      
-  
+
+  const stateCheck = () =>{
+    const livePlayers = players.filter(player => !player.dead)
+    const liveAssassins = livePlayers.filter(player => player.role==="Assassino")
+    const liveXerifs = livePlayers.filter(player => player.role==="Xerife")
+    const liveAngels = livePlayers.filter(player => player.role==="Anjo")
+    
+    const newConfig = {
+      numPlayers: livePlayers.length,
+      numAssassin: liveAssassins.length,
+      numXerif: liveXerifs.length,
+      numAng: liveAngels.length,
+    };
+    updateConfig(newConfig);
+    if (config.numAssassin === 0){
+      const newConfig = {
+        numPlayers: livePlayers.length,
+        numAssassin: liveAssassins.length,
+        numXerif: liveXerifs.length,
+        numAng: liveAngels.length,
+        gameover1: true,
+      };
+      updateConfig(newConfig);
+    }
+    else if (config.numAssassin === config.numPlayers/2){
+      const newConfig = {
+        numPlayers: livePlayers.length,
+        numAssassin: liveAssassins.length,
+        numXerif: liveXerifs.length,
+        numAng: liveAngels.length,
+        gameover2: true,
+      };
+      updateConfig(newConfig);
+    }
+    
+    return
+  }  
     // Function to update the flags of a player
     const updatePlayerFlags = (playerIndex, flags) => {
       setPlayers(prevPlayers => {
