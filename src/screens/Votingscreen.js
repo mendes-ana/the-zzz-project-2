@@ -27,6 +27,7 @@ export default props => {
       }
     });
     setSelectedPlayers([]);
+    props.navigation.navigate('InvestigationScreen');
   };
 
 
@@ -64,9 +65,7 @@ export default props => {
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Executar</Text>
             </View>
-        </TouchableOpacity>
-      <Change_screen {...props} avancar='GameOver' text='Continuar'></Change_screen>
-      
+      </TouchableOpacity>      
     </View>
   );
 };

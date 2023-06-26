@@ -27,7 +27,7 @@ const PlayerProvider2 = ({ children }) => {
     const [numAssassin,setNumAssassin] = useState(0);
     const [numXerif,setNumXerif] = useState(0);
     const [numAng,setNumAng] = useState(0);
-    const [config, dispatch] = useReducer(configReducer, initialState)
+    const [config, dispatch] = useReducer(configReducer, initialState);
     
     const updateConfig = (updatedConfig) =>{
       dispatch({type: 'UPDATE_CONFIG', payload: updatedConfig});
@@ -98,7 +98,7 @@ const PlayerProvider2 = ({ children }) => {
         const roles = Array(config.numAssassin).fill('Assassino')
           .concat(Array(config.numXerif).fill('Xerife'))
           .concat(Array(config.numAng).fill('Anjo'))
-          .concat(Array(config.numPlayers-(config.numAng+config.numAssassin+config.numXerif)).fill('Civilian'));
+          .concat(Array(config.numPlayers-(config.numAng+config.numAssassin+config.numXerif)).fill('Civil'));
       
         const shuffledRoles= arrayShuffle(roles)
       

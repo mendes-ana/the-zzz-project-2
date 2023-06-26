@@ -15,15 +15,30 @@ export default props => {
     </View>    
   );
 
+  const protegidos = players.filter(player => player.protected);
+  const atacados = players.filter(player => player.attacked);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Player List</Text>
+      <Text style={styles.heading}>Lista de Jogadores</Text>
       <FlatList
         data={players}
         renderItem={renderPlayerItem}
         keyExtractor={(item) => item.id.toString()}
       />
-      <Change_screen {...props} avancar='Investigationscreen' text='Turno do Xerife'></Change_screen>
+      <Text style={styles.heading}>Lista de Protegidos</Text>
+      <FlatList
+        data={protegidos}
+        renderItem={renderPlayerItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
+      <Text style={styles.heading}>Lista de Atacados</Text>
+      <FlatList
+        data={atacados}
+        renderItem={renderPlayerItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
+      <Change_screen {...props} avancar='Investigationscreen' text='Iniciar'></Change_screen>
     </View>
   );
 };

@@ -18,6 +18,7 @@ import { Alert } from 'react-native';
       Alert.alert('Resultado', ` ${player.name} é um ${player.role}`);
     }
     setSelectedPlayer(null);
+    props.navigation.navigate('AngelScreen');
   };
 
   
@@ -45,7 +46,6 @@ import { Alert } from 'react-native';
                 <Text style={styles.buttonText}>Investigar</Text>
             </View>
         </TouchableOpacity>
-      <Change_screen {...props} avancar='AngelScreen' text='Anjos'></Change_screen>
     </View>
   );
 };

@@ -1,12 +1,18 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Button, SafeAreaView, StyleSheet, Dimensions} from 'react-native';
 import { PlayerContext2 } from '../components/Playercontext2';
-import Change_screen from '../components/Change_screen';
-
 
 export default props => {
   const { players, updatePlayerFlags, config } = useContext(PlayerContext2);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+
+  useEffect(()=>{
+    let assassinos = players.filter(player => !player.dead && player.role === 'Assassino');
+    let cidade = players.filter(player => !player.dead && player.role !=='Assassino');
+    if((assassinos.length===0 || assassinos.length>=cidade.length)){
+      props.navigation.navigate("GameOver");
+    }
+  },[players])
 
   // Function to handle player selection
   const handlePlayerSelection = (playerId) => {
@@ -28,6 +34,7 @@ export default props => {
       }
     });
     setSelectedPlayers([]);
+    props.navigation.navigate('NightResult');
   };
 
   // Get the list of alive players (excluding Mafia)
@@ -66,9 +73,7 @@ export default props => {
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Confirmar</Text>
             </View>
-        </TouchableOpacity>
-      <Change_screen {...props} avancar='Voting' text='Avança'></Change_screen>
-      
+        </TouchableOpacity>      
     </SafeAreaView>
   );
 };

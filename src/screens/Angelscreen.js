@@ -27,6 +27,7 @@ export default props => {
       }
     });
     setSelectedPlayers([]);
+    props.navigation.navigate('Assassin');
   };
 
   const alivePlayers = players.filter(player => !player.dead);
@@ -64,8 +65,6 @@ export default props => {
                 <Text style={styles.buttonText}>Proteger</Text>
             </View>
         </TouchableOpacity>
-      <Change_screen {...props} avancar='Assassin' text='Turno dos Assassinos'></Change_screen>
-      
     </View>
   );
 };
