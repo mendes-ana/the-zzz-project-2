@@ -8,6 +8,7 @@ export default props => {
   const { players, updatePlayerFlags, config } = useContext(PlayerContext2);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
 
+  // Function to handle player selection
   const handlePlayerSelection = (playerId) => {
     if (selectedPlayers.includes(playerId)) {
       setSelectedPlayers(selectedPlayers.filter(id => id !== playerId));
@@ -18,22 +19,22 @@ export default props => {
     }
   };
 
-  //Protege os jogadores selecionados
-  const handleProtection = () => {
+  const handleVote = () => {
     selectedPlayers.forEach(playerId => {
       const playerIndex = players.findIndex(player => player.id === playerId);
       if (playerIndex !== -1) {
-        updatePlayerFlags(playerIndex, { protected: true });
+        updatePlayerFlags(playerIndex, { dead: true });
       }
     });
     setSelectedPlayers([]);
   };
 
+
   const alivePlayers = players.filter(player => !player.dead);
-  //Renderiza todos os jogadores vivos (independente de role)
+
   return (
     <View>
-      <Text>Selecione até {config.numAng} jogadores para proteger!</Text>
+      <Text>Vote em alguém para ser Executado!</Text>
       {alivePlayers.map(player => (
         <TouchableOpacity
           key={player.id}
@@ -43,7 +44,7 @@ export default props => {
             marginBottom: 10,
           }}
           onPress={() => handlePlayerSelection(player.id)}
-          disabled={selectedPlayers.length === config.numAng}
+          disabled={selectedPlayers.length === 1}
         >
           <View
             style={{
@@ -60,11 +61,10 @@ export default props => {
         </TouchableOpacity>
       ))}
       <Button
-        title="Proteger"
-        onPress={handleProtection}
-        disabled={selectedPlayers.length === 0}
+        title="Executar"
+        onPress={handleVote}
       />
-      <Change_screen {...props} avancar='Assassin' text='Turno dos Assassinos'></Change_screen>
+      <Change_screen {...props} avancar='InvestigationScreen' text='Próxima noite'></Change_screen>
       
     </View>
   );

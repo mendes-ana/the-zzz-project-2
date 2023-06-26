@@ -55,7 +55,7 @@ export default props => {
           title="Save Config"
           onPress={handleConfigUpdate}
         />
-        <Change_screen {...props} avancar='Debug' text='Jogar'></Change_screen>
+        <Change_screen {...props} avancar='Debug' text='Começar o jogo'></Change_screen>
       </View>
     );
   };

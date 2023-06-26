@@ -19,6 +19,19 @@ const configReducer =(state, action)=>{
   }
 };
 
+const isGameOver = () => {
+  stateCheck();
+  const remainingPlayers = players.filter(player => !player.dead);
+  const remainingMafia = remainingPlayers.filter(player => player.role === 'Mafia');
+  
+  if (remainingMafia.length === 0 || remainingMafia.length >= remainingPlayers.length / 2) {
+    return true;
+  }
+
+  return false;
+};
+
+
 const PlayerContext2 = createContext();
 
 const PlayerProvider2 = ({ children }) => {
@@ -80,7 +93,7 @@ const PlayerProvider2 = ({ children }) => {
       updateConfig(newConfig);
     }
     
-    return
+    return newConfig;
   }  
     // Function to update the flags of a player
     const updatePlayerFlags = (playerIndex, flags) => {

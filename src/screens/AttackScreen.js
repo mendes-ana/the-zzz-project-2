@@ -8,7 +8,6 @@ export default props => {
   const { players, updatePlayerFlags, config } = useContext(PlayerContext2);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
 
-  // Function to handle player selection
   const handlePlayerSelection = (playerId) => {
     if (selectedPlayers.includes(playerId)) {
       setSelectedPlayers(selectedPlayers.filter(id => id !== playerId));
@@ -19,7 +18,7 @@ export default props => {
     }
   };
 
-  // Function to handle the attack on selected players
+  //Executa o ataque
   const handleAttack = () => {
     selectedPlayers.forEach(playerId => {
       const playerIndex = players.findIndex(player => player.id === playerId);
@@ -29,11 +28,10 @@ export default props => {
     });
     setSelectedPlayers([]);
   };
-
-  // Get the list of alive players (excluding Mafia)
+  //Filtra jogadores vivos e não Assassinos
   const alivePlayers = players.filter(player => !player.dead && player.role !== 'Assassino');
 
-  // Render the attack screen
+  //Renderiza as opções de ataque
   return (
     <View>
       <Text>Select up to {config.numAssassin} players to attack:</Text>
@@ -67,7 +65,7 @@ export default props => {
         onPress={handleAttack}
         disabled={selectedPlayers.length === 0}
       />
-      <Change_screen {...props} avancar='Debug' text='Avança'></Change_screen>
+      <Change_screen {...props} avancar='NightResult' text='Finalizar Noite'></Change_screen>
       
     </View>
   );

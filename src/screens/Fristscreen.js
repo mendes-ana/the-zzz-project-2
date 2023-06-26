@@ -8,7 +8,7 @@ export default props => {
     return(
         <View style={styles.container}>
             <ImageBackground source={Mainbackground} resizeMode="cover" style={styles.image}>
-                <Change_screen {...props} avancar='Secondscreen' text='Jogar'>
+                <Change_screen {...props} avancar='Setting' text='Jogar'>
                     <Text>Teste de tela</Text>
                 </Change_screen>
             </ImageBackground>
