@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Dimensions, SafeAreaView } from 'react-native';
 import { PlayerContext2 } from '../components/Playercontext2';
 import Change_screen from '../components/Change_screen';
 import { StyleSheet } from 'react-native';
@@ -26,7 +26,7 @@ export default props => {
   
     // Render the config screen
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Text style={styles.formText}>Number of Players:</Text>
         <TextInput
         style={styles.formText2}
@@ -61,7 +61,7 @@ export default props => {
             </View>
         </TouchableOpacity>
         <Change_screen {...props} avancar='Debug' text='Jogar'></Change_screen>
-      </View>
+      </SafeAreaView>
     );
   };
 
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent: 'center',
     alignItems:'center',
-    backgroundColor: '#3f4145',
+    backgroundColor: 'black',
   },
   button: {
     marginBottom: 30,
@@ -87,16 +87,24 @@ const styles = StyleSheet.create({
     padding: 20,
     color: 'white',
     fontSize: 30,
+    fontFamily: 'JacquesFrancoisShadow',
   },
   formText:{
     textAlign: 'center',
     color: 'white',
     fontSize: 30,
+    fontFamily: 'JacquesFrancoisShadow',
   },
   formText2:{
     textAlign: 'center',
     paddingBottom: 10,
-    color: '#8B0000',
-    fontSize: 30,
+    color: 'white',
+    fontSize: 20,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 202,
+    borderColor: '#8B0000',
+    fontFamily: 'JacquesFrancoisShadow',
   }
 })

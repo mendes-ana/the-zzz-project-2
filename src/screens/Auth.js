@@ -56,7 +56,7 @@ signup = async () => {
         })
 
         // Se a solicitação for bem-sucedida, mostra uma mensagem de sucesso
-        showSuccess('Usuário cadastro!')
+        showSuccess('Boa')
 
         // Resetar o estado do componente para o estado inicial
         this.setState({ ...initialState })
@@ -126,7 +126,7 @@ render() {
         <ImageBackground source={backgroundImage}
             style={styles.background}>
             {/* // Título do app */}
-            <Text style={styles.title}>Tasks</Text>
+            <Text style={styles.title}>Login</Text>
             {/* // Container para o formulário de login ou criar conta*/}
             <View style={styles.formContainer}>
                 {/* // Subtítulo, dependendo se o usuário está criando uma conta ou fazendo login */}
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     title: {
-        fontFamily: commonStyles.fontFamily,
+        fontFamily: 'JacquesFrancoisShadow',
         color: commonStyles.colors.secondary,
         fontSize: 70,
         marginBottom: 10
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF'
     },
     button: {
-        backgroundColor: '#080',
+        backgroundColor: '#8B0000',
         marginTop: 10,
         padding: 10,
         alignItems: 'center',

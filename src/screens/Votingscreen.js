@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, TouchableOpacity, Button, SafeAreaView, StyleSheet, Dimensions} from 'react-native';
+import { View, Text, TouchableOpacity, Button, StyleSheet, Dimensions } from 'react-native';
 import { PlayerContext2 } from '../components/Playercontext2';
 import Change_screen from '../components/Change_screen';
 
@@ -19,24 +19,22 @@ export default props => {
     }
   };
 
-  // Function to handle the attack on selected players
-  const handleAttack = () => {
+  const handleVote = () => {
     selectedPlayers.forEach(playerId => {
       const playerIndex = players.findIndex(player => player.id === playerId);
       if (playerIndex !== -1) {
-        updatePlayerFlags(playerIndex, { attacked: true });
+        updatePlayerFlags(playerIndex, { dead: true });
       }
     });
     setSelectedPlayers([]);
   };
 
-  // Get the list of alive players (excluding Mafia)
-  const alivePlayers = players.filter(player => !player.dead && player.role !== 'Assassino');
 
-  // Render the attack screen
+  const alivePlayers = players.filter(player => !player.dead);
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Assassinos, escolham {config.numAssassin} jogador(es) para eliminar nesta noite</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Vote em alguém para ser Executado!</Text>
       {alivePlayers.map(player => (
         <TouchableOpacity
           key={player.id}
@@ -46,7 +44,7 @@ export default props => {
             marginBottom: 10,
           }}
           onPress={() => handlePlayerSelection(player.id)}
-          disabled={selectedPlayers.length === config.numAssassin && !selectedPlayers.includes(player.id)}
+          disabled={selectedPlayers.length === 1}
         >
           <View
             style={{
@@ -59,19 +57,20 @@ export default props => {
               backgroundColor: selectedPlayers.includes(player.id) ? 'green' : 'transparent',
             }}
           />
-          <Text>{player.name}</Text>
+          <Text style={styles.text}>{player.name}</Text>
         </TouchableOpacity>
       ))}
-      <TouchableOpacity onPress={handleAttack}>
+      <TouchableOpacity onPress={handleVote}>
             <View style={styles.button}>
-                <Text style={styles.buttonText}>Confirmar</Text>
+                <Text style={styles.buttonText}>Executar</Text>
             </View>
         </TouchableOpacity>
-      <Change_screen {...props} avancar='Voting' text='Avança'></Change_screen>
+      <Change_screen {...props} avancar='GameOver' text='Continuar'></Change_screen>
       
-    </SafeAreaView>
+    </View>
   );
 };
+
 const screen = Dimensions.get("window");
 const buttonWidth = screen.width / 2;
 const styles = StyleSheet.create({
@@ -83,10 +82,14 @@ const styles = StyleSheet.create({
   },
   title:{
     textAlign: 'center',
-    paddingBottom: 30,
     color: 'white',
     fontSize: 30,
-    margin: 12,
+    fontFamily: 'JacquesFrancoisShadow',
+  },
+  text:{
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 20,
     fontFamily: 'JacquesFrancoisShadow',
   },
   button: {
@@ -95,6 +98,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#3B3636',
     borderRadius: 202,
+    marginTop: 10,
     
   },
   buttonText: {

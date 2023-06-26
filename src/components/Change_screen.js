@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
         padding: 20,
         color: 'white',
         fontSize: 30,
+        fontFamily: 'JacquesFrancoisShadow',
       },
       buttonSecondary: {
         backgroundColor: "#3B3636",
