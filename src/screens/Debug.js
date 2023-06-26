@@ -23,7 +23,7 @@ export default props => {
         renderItem={renderPlayerItem}
         keyExtractor={(item) => item.id.toString()}
       />
-      <Change_screen {...props} avancar='InvestigationScreen' text='Turno do Xerife'></Change_screen>
+      <Change_screen {...props} avancar='GameOver' text='Turno do Xerife'></Change_screen>
     </View>
   );
 };

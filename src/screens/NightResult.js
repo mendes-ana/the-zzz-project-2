@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text,StyleSheet } from 'react-native';
 import { PlayerContext2 } from '../components/Player_context2';
 import Change_screen from '../components/Change_screen';
 

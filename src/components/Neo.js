@@ -69,11 +69,6 @@ export default props => (
                 component={AngelScreen}
                 options={{title: 'Holy moly!'}}>
         </Stack.Screen>
-        {/*<Stack.Screen
-                name="DayResult"
-                component={DayResult}
-                options={{title: 'Claro como o dia'}}>
-</Stack.Screen>*/}
         <Stack.Screen
                 name="Voting"
                 component={VotingScreen}
