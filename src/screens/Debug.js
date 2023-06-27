@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { PlayerContext2 } from '../components/Playercontext2';
 import Change_screen from '../components/Change_screen';
 
@@ -10,17 +10,14 @@ export default props => {
   // Render each player item
   const renderPlayerItem = ({item}) => (
     <View style={styles.playerItem}>
-      <Text style={styles.playerName}>{item.name}</Text>
-      <Text style={styles.playerName}>{item.role} </Text>
+      <Text style={styles.text}>{item.name}: </Text>
+      <Text style={styles.text}>{item.role}</Text>
     </View>    
   );
 
-  const protegidos = players.filter(player => player.protected);
-  const atacados = players.filter(player => player.attacked);
-
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Lista de Jogadores</Text>
+      <Text style={styles.title}>Lista de Jogadores</Text>
       <FlatList
         data={players}
         renderItem={renderPlayerItem}
@@ -31,24 +28,32 @@ export default props => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 16,
+    backgroundColor: 'black'
   },
-  heading: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
+
+  text:{
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 20,
+    fontFamily: 'JacquesFrancoisShadow',
   },
-  playerItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
+  playerItem:{
+    flexDirection:'row',
   },
-  playerName: {
-    fontSize: 18,
-    marginLeft: 8,
+
+  title: {
+    fontFamily: 'JacquesFrancoisShadow',
+        color: 'white',
+        fontSize: 30,
+        textAlign: 'center',
+        marginTop: 50,
+        marginBottom: 50,
   },
-};
+});
+

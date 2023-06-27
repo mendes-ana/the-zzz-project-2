@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet} from 'react-native';
 import { PlayerContext2 } from '../components/Playercontext2';
 import Change_screen from '../components/Change_screen';
 
@@ -20,10 +20,9 @@ export default props => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Resultado da noite:</Text>
-      <Text style={styles.subtitle}>Falecidos:</Text>
+      <Text style={styles.title}>Jogadores Falecidos:</Text>
       {players.filter(player => player.dead).map(player => (
-        <Text key={player.id}>{player.name}</Text>
+        <Text style={styles.text} key={player.id}>{player.name}</Text>
       ))}
       <Change_screen {...props} avancar='VoteAction' text='Discussão'></Change_screen>
     </View>
@@ -33,16 +32,26 @@ export default props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    backgroundColor: 'black'
   },
+
+  text:{
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 20,
+    fontFamily: 'JacquesFrancoisShadow',
+  },
+
   title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 5,
+    fontFamily: 'JacquesFrancoisShadow',
+        color: 'white',
+        fontSize: 30,
+        textAlign: 'center',
+        marginTop: 50,
+        marginBottom: 50,
   },
 });
+

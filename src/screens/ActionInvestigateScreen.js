@@ -48,7 +48,7 @@ export default props => {
               backgroundColor: selectedPlayer === player.id ? 'red' : 'transparent',
             }}
           />
-            <Text style={styles.buttonText}>{player.name}</Text>
+            <Text style={styles.text}>{player.name}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -85,6 +85,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#3B3636',
     borderRadius: 202,
     
+  },
+  text:{
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 20,
+    fontFamily: 'JacquesFrancoisShadow',
   },
   buttonText: {
     textAlign: 'center',
