@@ -1,10 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, TouchableOpacity, Button, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { PlayerContext2 } from '../components/Playercontext2';
-import Change_screen from '../components/Change_screen';
 import { Alert } from 'react-native';
 
-  export default props => {
+export default props => {
   const { players } = useContext(PlayerContext2);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
 
@@ -18,7 +17,7 @@ import { Alert } from 'react-native';
       Alert.alert('Resultado', ` ${player.name} é um ${player.role}`);
     }
     setSelectedPlayer(null);
-    props.navigation.navigate('AngelScreen');
+    props.navigation.navigate('ProtectAction');
   };
 
   
@@ -30,14 +29,26 @@ import { Alert } from 'react-native';
         {alivePlayers.map(player => (
           <TouchableOpacity
             key={player.id}
-            style={[
-              styles.playerButton,
-              selectedPlayer === player.id && styles.selectedPlayerButton,
-            ]}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginBottom: 10,
+            }}
             onPress={() => handlePlayerSelection(player.id)}
             disabled={!!selectedPlayer}
           >
-            <Text style={styles.playerName}>{player.name}</Text>
+            <View
+            style={{
+              height: 20,
+              width: 20,
+              borderRadius: 10,
+              borderWidth: 2,
+              borderColor: selectedPlayer === player.id ? 'red' : 'gray',
+              marginRight: 10,
+              backgroundColor: selectedPlayer === player.id ? 'red' : 'transparent',
+            }}
+          />
+            <Text style={styles.buttonText}>{player.name}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -67,21 +78,6 @@ const styles = StyleSheet.create({
     margin: 12,
     fontFamily: 'JacquesFrancoisShadow',
   },
-  playerButton: {
-    padding: 10,
-    backgroundColor: '#eaeaea',
-    marginVertical: 5,
-    borderRadius: 5,
-  },
-  selectedPlayerButton: {
-    backgroundColor: '#aaf',
-  },
-  playerName: {
-    textAlign: 'center',
-    color: 'white',
-    fontSize: 20,
-    fontFamily: 'JacquesFrancoisShadow',
-  },
   button: {
     marginBottom: 30,
     width: buttonWidth,
@@ -94,7 +90,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 20,
     color: 'white',
-    fontSize: 30,
+    fontSize: 20,
     fontFamily: 'JacquesFrancoisShadow',
   },
 });

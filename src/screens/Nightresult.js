@@ -4,11 +4,10 @@ import { PlayerContext2 } from '../components/Playercontext2';
 import Change_screen from '../components/Change_screen';
 
 export default props => {
-  const { players, updatePlayerFlags, isGameOver } = useContext(PlayerContext2);
-
+  const { players, updatePlayerFlags} = useContext(PlayerContext2);
+  //Executa os efeitos da rodada da noite, Caso jogadores tenham sido atacados e não protegidos, eles morrem
+  //As flags de atacado e protegido são resetadas antes que a próxima rodada se inicie
   useEffect(() => {
-    
-    console.log('Entrou')
     for(let i=0; i<players.length;i++){
       if(players[i].protected){
         updatePlayerFlags(i,{attacked:false, protected:false})
@@ -17,8 +16,6 @@ export default props => {
         updatePlayerFlags(i,{attacked: false, dead: true})
       }
     }
-
-
   });
 
   return (
@@ -28,7 +25,7 @@ export default props => {
       {players.filter(player => player.dead).map(player => (
         <Text key={player.id}>{player.name}</Text>
       ))}
-      <Change_screen {...props} avancar='Voting' text='Discussão'></Change_screen>
+      <Change_screen {...props} avancar='VoteAction' text='Discussão'></Change_screen>
     </View>
   );
 };

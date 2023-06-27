@@ -26,19 +26,7 @@ export default props => {
         renderItem={renderPlayerItem}
         keyExtractor={(item) => item.id.toString()}
       />
-      <Text style={styles.heading}>Lista de Protegidos</Text>
-      <FlatList
-        data={protegidos}
-        renderItem={renderPlayerItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
-      <Text style={styles.heading}>Lista de Atacados</Text>
-      <FlatList
-        data={atacados}
-        renderItem={renderPlayerItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
-      <Change_screen {...props} avancar='Investigationscreen' text='Iniciar'></Change_screen>
+    <Change_screen {...props} avancar='InvestigateAction' text='Iniciar'></Change_screen>
     </View>
   );
 };

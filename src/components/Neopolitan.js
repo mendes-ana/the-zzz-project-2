@@ -1,15 +1,15 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Fristscreen from "../screens/Fristscreen";
-import Playerlist from "./Playerlist"
-import Attackscreen from "../screens/Attackscreen"
 import Debug from "../screens/Debug";
-import Configscreen from "../screens/Configscreen";
 import Nightresult from "../screens/Nightresult";
 import GameOverScreen1 from "../screens/Gameover1";
-import Investigationscreen from "../screens/Investigationscreen";
-import Angelscreen from "../screens/Angelscreen";
-import Votingscreen from "../screens/Votingscreen";
 import Auth from "../screens/Auth";
+import ActionAttackScreen from "../screens/ActionAttackScreen";
+import ActionInvestigateScreen from "../screens/ActionInvestigateScreen";
+import ActionProtectScreen from "../screens/ActionProtectScreen";
+import ActionVoteScreen from "../screens/ActionVoteScreen";
+import GameConfig from "../screens/GameConfig";
+
 
 const Stack = createNativeStackNavigator()
 
@@ -25,16 +25,6 @@ export default props => (
                 name="Auth"
                 component={Auth}
                 options={{title: 'Login'}}>
-        </Stack.Screen>    
-        <Stack.Screen
-                name="Playerlist"
-                component={Playerlist} 
-                options={{ title: 'pick your poison' }}>
-        </Stack.Screen>
-        <Stack.Screen
-                name="Assassin"
-                component={Attackscreen}
-                options={{title: 'Among us'}}>
         </Stack.Screen>
         <Stack.Screen
                 name="Debug"
@@ -43,7 +33,7 @@ export default props => (
         </Stack.Screen>
         <Stack.Screen
                 name="Configscreen"
-                component={Configscreen}
+                component={GameConfig}
                 options={{title: 'Sanidade-30'}}>
         </Stack.Screen>
         <Stack.Screen
@@ -52,18 +42,23 @@ export default props => (
                 options={{title: 'DANCIN'}}>
         </Stack.Screen>
         <Stack.Screen
-                name="Investigationscreen"
-                component={Investigationscreen}
+                name="InvestigateAction"
+                component={ActionInvestigateScreen}
                 options={{title: 'POLIÇA'}}>
         </Stack.Screen>
         <Stack.Screen
-                name="AngelScreen"
-                component={Angelscreen}
+                name="ProtectAction"
+                component={ActionProtectScreen}
                 options={{title: 'Holy moly!'}}>
         </Stack.Screen>
         <Stack.Screen
-                name="Voting"
-                component={Votingscreen}
+                name="AttackAction"
+                component={ActionAttackScreen}
+                options={{title: 'Among us'}}>
+        </Stack.Screen>
+        <Stack.Screen
+                name="VoteAction"
+                component={ActionVoteScreen}
                 options={{title: 'Amongus'}}>
         </Stack.Screen>
         <Stack.Screen

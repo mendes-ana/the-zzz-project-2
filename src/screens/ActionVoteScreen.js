@@ -1,18 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Button, SafeAreaView, StyleSheet, Dimensions} from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { PlayerContext2 } from '../components/Playercontext2';
 
 export default props => {
-  const { players, updatePlayerFlags, config } = useContext(PlayerContext2);
+  const { players, updatePlayerFlags} = useContext(PlayerContext2);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
-
-  useEffect(()=>{
-    let assassinos = players.filter(player => !player.dead && player.role === 'Assassino');
-    let cidade = players.filter(player => !player.dead && player.role !=='Assassino');
-    if((assassinos.length===0 || assassinos.length>=cidade.length)){
-      props.navigation.navigate("GameOver");
-    }
-  },[players])
 
   // Function to handle player selection
   const handlePlayerSelection = (playerId) => {
@@ -25,25 +17,23 @@ export default props => {
     }
   };
 
-  // Function to handle the attack on selected players
-  const handleAttack = () => {
+  const handleVote = () => {
     selectedPlayers.forEach(playerId => {
       const playerIndex = players.findIndex(player => player.id === playerId);
       if (playerIndex !== -1) {
-        updatePlayerFlags(playerIndex, { attacked: true });
+        updatePlayerFlags(playerIndex, { dead: true });
       }
     });
     setSelectedPlayers([]);
-    props.navigation.navigate('NightResult');
+    props.navigation.navigate('InvestigateAction');
   };
 
-  // Get the list of alive players (excluding Mafia)
-  const alivePlayers = players.filter(player => !player.dead && player.role !== 'Assassino');
 
-  // Render the attack screen
+  const alivePlayers = players.filter(player => !player.dead);
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Assassinos, escolham {config.numAssassin} jogador(es) para eliminar nesta noite</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Vote em alguém para ser Executado!</Text>
       {alivePlayers.map(player => (
         <TouchableOpacity
           key={player.id}
@@ -53,7 +43,7 @@ export default props => {
             marginBottom: 10,
           }}
           onPress={() => handlePlayerSelection(player.id)}
-          disabled={selectedPlayers.length === config.numAssassin && !selectedPlayers.includes(player.id)}
+          disabled={selectedPlayers.length === 1}
         >
           <View
             style={{
@@ -66,17 +56,18 @@ export default props => {
               backgroundColor: selectedPlayers.includes(player.id) ? 'green' : 'transparent',
             }}
           />
-          <Text>{player.name}</Text>
+          <Text style={styles.text}>{player.name}</Text>
         </TouchableOpacity>
       ))}
-      <TouchableOpacity onPress={handleAttack}>
+      <TouchableOpacity onPress={handleVote}>
             <View style={styles.button}>
-                <Text style={styles.buttonText}>Confirmar</Text>
+              <Text style={styles.buttonText}>Escolher</Text> 
             </View>
-        </TouchableOpacity>      
-    </SafeAreaView>
+      </TouchableOpacity>      
+    </View>
   );
 };
+
 const screen = Dimensions.get("window");
 const buttonWidth = screen.width / 2;
 const styles = StyleSheet.create({
@@ -88,10 +79,14 @@ const styles = StyleSheet.create({
   },
   title:{
     textAlign: 'center',
-    paddingBottom: 30,
     color: 'white',
     fontSize: 30,
-    margin: 12,
+    fontFamily: 'JacquesFrancoisShadow',
+  },
+  text:{
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 20,
     fontFamily: 'JacquesFrancoisShadow',
   },
   button: {
@@ -100,13 +95,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#3B3636',
     borderRadius: 202,
+    marginTop: 10,
     
   },
   buttonText: {
     textAlign: 'center',
     padding: 20,
     color: 'white',
-    fontSize: 30,
+    fontSize: 20,
     fontFamily: 'JacquesFrancoisShadow',
   },
 });

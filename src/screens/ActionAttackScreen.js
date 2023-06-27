@@ -1,13 +1,21 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, TouchableOpacity, Button, Dimensions, StyleSheet} from 'react-native';
+import React, { useContext, useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, SafeAreaView, StyleSheet, Dimensions} from 'react-native';
 import { PlayerContext2 } from '../components/Playercontext2';
-import Change_screen from '../components/Change_screen';
-
 
 export default props => {
   const { players, updatePlayerFlags, config } = useContext(PlayerContext2);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
 
+  useEffect(()=>{
+    let assassinos = players.filter(player => !player.dead && player.role === 'Assassino');
+    let cidade = players.filter(player => !player.dead && player.role !=='Assassino');
+    if((assassinos.length===0 || assassinos.length>=cidade.length)){
+      props.navigation.navigate("GameOver");
+    }
+  },[players])
+
+  //Lidando com os jogadores selecionados
+  //eles são jogados em um array
   const handlePlayerSelection = (playerId) => {
     if (selectedPlayers.includes(playerId)) {
       setSelectedPlayers(selectedPlayers.filter(id => id !== playerId));
@@ -18,23 +26,26 @@ export default props => {
     }
   };
 
-  //Protege os jogadores selecionados
-  const handleProtection = () => {
+  //Realiza o ataque nos jogadores
+  const handleAttack = () => {
     selectedPlayers.forEach(playerId => {
       const playerIndex = players.findIndex(player => player.id === playerId);
       if (playerIndex !== -1) {
-        updatePlayerFlags(playerIndex, { protected: true });
+        updatePlayerFlags(playerIndex, { attacked: true });
       }
     });
     setSelectedPlayers([]);
-    props.navigation.navigate('Assassin');
+    props.navigation.navigate('NightResult');
   };
 
-  const alivePlayers = players.filter(player => !player.dead);
-  //Renderiza todos os jogadores vivos (independente de role)
+  //Filtra a lista de jogadores vivos e não assassinos
+  const alivePlayers = players.filter(player => !player.dead && player.role !== 'Assassino');
+  const aliveAssassins = players.filter(player => !player.dead && player.role ==="Assassino");
+
+  //Renderiza a lista de opções de alvo para atacar
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Selecione até {config.numAng} jogadores para proteger!</Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Assassinos, escolham {aliveAssassins.length} jogador(es) para eliminar nesta noite</Text>
       {alivePlayers.map(player => (
         <TouchableOpacity
           key={player.id}
@@ -44,7 +55,7 @@ export default props => {
             marginBottom: 10,
           }}
           onPress={() => handlePlayerSelection(player.id)}
-          disabled={selectedPlayers.length === config.numAng}
+          disabled={selectedPlayers.length === aliveAssassins.length && !selectedPlayers.includes(player.id)}
         >
           <View
             style={{
@@ -52,72 +63,44 @@ export default props => {
               width: 20,
               borderRadius: 10,
               borderWidth: 2,
-              borderColor: selectedPlayers.includes(player.id) ? 'green' : 'gray',
+              borderColor: selectedPlayers.includes(player.id) ? 'red' : 'gray',
               marginRight: 10,
-              backgroundColor: selectedPlayers.includes(player.id) ? 'green' : 'transparent',
+              backgroundColor: selectedPlayers.includes(player.id) ? 'red' : 'transparent',
             }}
           />
-          <Text style={styles.text}>{player.name}</Text>
+          <Text style={styles.buttonText}>{player.name}</Text>
         </TouchableOpacity>
       ))}
-      <TouchableOpacity onPress={handleProtection}>
+      <TouchableOpacity onPress={handleAttack}>
             <View style={styles.button}>
-                <Text style={styles.buttonText}>Proteger</Text>
+                <Text style={styles.buttonText}>Confirmar</Text>
             </View>
-        </TouchableOpacity>
-    </View>
+        </TouchableOpacity>      
+    </SafeAreaView>
   );
 };
-
 const screen = Dimensions.get("window");
 const buttonWidth = screen.width / 2;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    justifyContent: 'center',
     backgroundColor: 'black'
   },
-
-  text:{
+  title:{
     textAlign: 'center',
+    paddingBottom: 30,
     color: 'white',
-    fontSize: 20,
+    fontSize: 30,
+    margin: 12,
     fontFamily: 'JacquesFrancoisShadow',
-  },
-
-  title: {
-    fontFamily: 'JacquesFrancoisShadow',
-        color: 'white',
-        fontSize: 30,
-        textAlign: 'center',
-        marginTop: 50,
-        marginBottom: 50,
-  },
-  playerItem: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    marginVertical: 4,
-    borderRadius: 4,
-    backgroundColor: '#fff',
-  },
-  selectedPlayerItem: {
-    backgroundColor: '#d3d3d3',
-  },
-  playerText: {
-    fontSize: 16,
-    color: '#000',
-  },
-  selectedPlayerText: {
-    fontSize: 16,
-    color: '#fff',
   },
   button: {
     marginBottom: 30,
     width: buttonWidth,
     alignItems: 'center',
-    backgroundColor: '#8B0000',
+    backgroundColor: '#3B3636',
     borderRadius: 202,
     
   },
@@ -125,7 +108,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 20,
     color: 'white',
-    fontSize: 30,
+    fontSize: 20,
     fontFamily: 'JacquesFrancoisShadow',
   },
 });

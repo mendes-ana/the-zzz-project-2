@@ -3,7 +3,6 @@ import { Text, StyleSheet, ImageBackground, View } from "react-native"
 import mainbackground from "./backgroundImage.png"
 
 export default props => {
-    console.warn(props.navigation.navigate != null)
     return(
         <View style={styles.container}>
             <ImageBackground source={mainbackground} resizeMode="cover" style={styles.image}>
