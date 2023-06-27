@@ -1,11 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, TouchableOpacity, Button, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { PlayerContext2 } from '../components/Playercontext2';
-import Change_screen from '../components/Change_screen';
-
 
 export default props => {
-  const { players, updatePlayerFlags, config } = useContext(PlayerContext2);
+  const { players, updatePlayerFlags} = useContext(PlayerContext2);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
 
   // Function to handle player selection
@@ -27,7 +25,7 @@ export default props => {
       }
     });
     setSelectedPlayers([]);
-    props.navigation.navigate('InvestigationScreen');
+    props.navigation.navigate('Investigationscreen');
   };
 
 

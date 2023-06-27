@@ -7,24 +7,16 @@ export default props => {
   const { players, updatePlayerFlags, isGameOver } = useContext(PlayerContext2);
 
   useEffect(() => {
+    
     console.log('Entrou')
-    let protegidos = players.filter(player => player.protected);
-    
-    
-    protegidos.forEach(player => {
-      const playerIndex = players.findIndex(p => p.id === player.id);
-      if (playerIndex !== -1) {
-        updatePlayerFlags(playerIndex, { attacked: false, protected: false });
+    for(let i=0; i<players.length;i++){
+      if(players[i].protected){
+        updatePlayerFlags(i,{attacked:false, protected:false})
       }
-    });
-    
-    let atacados = players.filter(player => player.attacked);
-    atacados.forEach(player => {
-      const playerIndex = players.findIndex(p => p.id === player.id);
-      if (playerIndex !== -1) {
-        updatePlayerFlags(playerIndex, { attacked: false, dead: true });
+      else if(players[i].attacked && !players[i].protected){
+        updatePlayerFlags(i,{attacked: false, dead: true})
       }
-    });
+    }
 
 
   });
@@ -36,7 +28,7 @@ export default props => {
       {players.filter(player => player.dead).map(player => (
         <Text key={player.id}>{player.name}</Text>
       ))}
-      <Change_screen {...props} avancar='Debug' text='Discussão'></Change_screen>
+      <Change_screen {...props} avancar='Voting' text='Discussão'></Change_screen>
     </View>
   );
 };
